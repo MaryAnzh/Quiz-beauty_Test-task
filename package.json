@@ -1,6 +1,9 @@
 {
   "version": "1.0.0",
-  "author": "Vashchayeva Maryia",
+  "author": {
+    "name": "Vashchayeva Maryia",
+    "email": "maryang@mail.ru"
+  },
   "name": "quiz-beauty-test-task",
   "description": "Test task for QMedia",
   "devDependencies": {
