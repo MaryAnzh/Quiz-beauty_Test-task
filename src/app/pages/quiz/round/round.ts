@@ -3,7 +3,7 @@ import { IRound } from '../../../../data/quiz.data';
 
 export class Round extends Control {
     sliderCheckboxes: Control;
-    checkboxesSet: Control[] = [];
+    checkboxesSet: HTMLInputElement[] = [];
 
     constructor(parent: HTMLElement, data: IRound) {
         super(parent, 'div', 'round');
@@ -17,8 +17,10 @@ export class Round extends Control {
                     { name: 'id', value: `box-${el}` }
                 ])
             const label = new Control(box.node, 'label', 'round__slider-checkboxes__box__label', null, [{ name: 'for', value: `box-${el}` }]);
-
+            const i = <HTMLInputElement>input.node;
+            this.checkboxesSet.push(i);
         });
+        this.checkboxesSet[0].checked = true;
     }
 
     destroy(): void {
