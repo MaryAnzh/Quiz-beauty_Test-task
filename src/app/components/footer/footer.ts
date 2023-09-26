@@ -27,7 +27,7 @@ export class Footer extends Control {
     constructor(parent: HTMLElement) {
         super(parent, 'footer', 'footer');
         this.wrap = new Control(this.node, 'div', 'footer__wrap');
-        this.copyWrite = new Control(this.wrap.node, 'p', 'footer__wrap__copyWrite', '©2023, Minsk');
+        this.copyWrite = new Control(this.wrap.node, 'p', 'footer__wrap__copywrite', '©2023, Minsk');
         this.myLinks = new Control(this.wrap.node, 'ul', 'footer__wrap__links');
         this.linkItems.forEach(({ name, url, icon }) => {
             const link = new Control(this.myLinks.node, 'li', 'footer__wrap__links__item');
