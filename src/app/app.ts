@@ -2,7 +2,6 @@ import { Control } from '../utile/control';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { Quiz } from './pages/quiz/quiz';
-import { quizData } from '../data/quiz.data';
 
 export class App extends Control {
     private header: Header;
@@ -21,7 +20,6 @@ export class App extends Control {
 
     showResult = () => {
         this.main.node.textContent = 'Спасибо за ответы';
-        console.log('result');
     }
 
     destroy(): void {

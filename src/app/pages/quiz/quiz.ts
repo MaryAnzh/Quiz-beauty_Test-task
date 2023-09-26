@@ -12,13 +12,7 @@ export class Quiz extends Control {
         super(parent, 'section', 'quiz');
         this.title = new Control(this.node, 'h2', 'quiz__title', quizConst.title);
         this.description = new Control(this.node, 'p', 'quiz__description', quizConst.description);
-        this.showRound(quizData[0]);
-    }
-
-    showRound = (data: IRound) => {
-        if(!this.round) {
-            this.round = new Round(this.node, data);
-        }
+        this.round = new Round(this.node);
     }
 
     destroy(): void {

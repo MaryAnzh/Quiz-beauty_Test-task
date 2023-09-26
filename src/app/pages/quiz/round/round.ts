@@ -5,7 +5,7 @@ export class Round extends Control {
     sliderCheckboxes: Control;
     checkboxesSet: HTMLInputElement[] = [];
 
-    constructor(parent: HTMLElement, data: IRound) {
+    constructor(parent: HTMLElement) {
         super(parent, 'div', 'round');
         this.sliderCheckboxes = new Control(this.node, 'div', 'round__slider-checkboxes');
         [...Array(3).keys()].forEach(el => {
