@@ -2,13 +2,13 @@ import { Control } from '../utile/control';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { Quiz } from './pages/quiz/quiz';
-import { Round } from './components/round/round';
+import { quizData } from '../data/quiz.data';
 
 export class App extends Control {
     private header: Header;
     private main: Control;
     private footer: Footer;
-    private quiz: Quiz;
+    public quiz: Quiz;
 
 
     constructor(parent: HTMLElement) {
@@ -16,11 +16,12 @@ export class App extends Control {
         this.header = new Header(this.node);
         this.main = new Control(this.node, 'main', 'main');
         this.footer = new Footer(this.node);
-        this.startGame();
+        this.quiz = new Quiz(this.main.node);
     }
 
-    startGame = () => {
-        this.quiz = new Quiz(this.main.node);
+    showResult = () => {
+        this.main.node.textContent = 'Спасибо за ответы';
+        console.log('result');
     }
 
     destroy(): void {

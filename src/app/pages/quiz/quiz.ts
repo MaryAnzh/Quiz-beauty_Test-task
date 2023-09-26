@@ -10,4 +10,10 @@ export class Quiz extends Control {
         this.title = new Control(this.node, 'h2', 'quiz__title', quizConst.title);
         this.description = new Control(this.node, 'p', 'quiz__description', quizConst.description);
     }
+
+    showRound = (questionNum: number) => { }
+
+    destroy(): void {
+        super.destroy();
+    }
 }
