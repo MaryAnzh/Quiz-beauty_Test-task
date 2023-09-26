@@ -53,7 +53,7 @@ export class Round extends Control {
     createAnswerList = (answers: string[]) => {
         this.answerList.node.innerHTML = '';
         [...Array(answers.length).keys()].forEach((index) => {
-            const answer = new Control(this.answerList.node, 'div', 'round__round__answer-list__answer');
+            const answer = new Control(this.answerList.node, 'li', 'round__answer-list__answer');
             const inputId = `answer_${index}`;
             const input = new Control(answer.node, 'input', 'round__answer-list__answer__input', null,
                 [
