@@ -1,0 +1,36 @@
+.header {
+    color: $mainColor;
+    background: $mainColorLight_2;
+
+
+    &__wrap {
+        width: 100%;
+        max-width: $appSize;
+        padding: 0 0.625rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-family: Inter;
+        line-height: normal;
+
+        &__title {
+            font-size: 2.5rem;
+            font-style: normal;
+            font-weight: 700;
+        }
+
+        &__author {
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        @media (max-width: $tabletPoint) {
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+    }
+
+
+
+}
