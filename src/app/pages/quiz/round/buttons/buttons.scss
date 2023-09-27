@@ -12,6 +12,7 @@
         font-size: 0.9375rem;
         font-weight: 700;
         line-height: normal;
+        transition: all .3s;
         cursor: pointer;
 
         &:hover {
@@ -24,15 +25,13 @@
     }
 
     &__prev-first {
-        width: 4.8rem;
-        color: $mainColorDark;
-        background-color: white;
         opacity: 0;
         pointer-events: none;
-        transition: all .3s;
     }
 
     &__prev {
+        color: $mainColorDark;
+        background-color: white;
         opacity: 1;
         pointer-events: all;
     }

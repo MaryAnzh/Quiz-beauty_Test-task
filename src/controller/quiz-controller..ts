@@ -20,9 +20,7 @@ export class QuizController {
         }
 
         const quiz = async () => {
-            console.log('1: this.answersSet');
-            console.log(this.answersSet);
-            
+
             const result: RoundResultType = await this.app.addRoundData(
                 this.data[this.currentRound],
                 this.data.length,
