@@ -1,13 +1,6 @@
 import './assets/style/style.scss';
-import { App } from './app/app';
+import { QuizController } from './controller/quiz-controller.';
+import { quizData } from './data/quiz.data';
 
-const body = document.querySelector('body');
-const app = new App(body);
-
-
-// const onloadApp = () => {
-//     app;
-//     onloadPage();
-// }
-
-// window.onload = () => onloadApp();
+const controller = new QuizController(quizData);
+controller.showApp();

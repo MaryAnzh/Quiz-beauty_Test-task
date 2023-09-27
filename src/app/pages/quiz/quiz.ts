@@ -15,6 +15,10 @@ export class Quiz extends Control {
         this.round = new Round(this.node);
     }
 
+    addRoundData = (roundInfo: IRound, questionCount: number, questionNum: number) => {
+        this.round.addRoundData(roundInfo, questionCount, questionNum);
+    }
+
     destroy(): void {
         super.destroy();
     }

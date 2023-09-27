@@ -27,21 +27,20 @@ export class Round extends Control {
         this.infWrap = new Control(this.node, 'div', 'round__info');
         this.sliderCheckboxes = new Control(this.infWrap.node, 'div', 'round__info__slider-checkboxes');
         this.questionNumText = new Control(this.infWrap.node, 'p', 'round__info__question-num-text');
-        this.question = new Control(this.infWrap.node, 'p', 'round__info__question', quizData[0].question);
+        this.question = new Control(this.infWrap.node, 'p', 'round__info__question');
         this.answerList = new Control(this.infWrap.node, 'ul', 'round__info__answer-list');
 
         //block2
         this.buttonsBlock = new Control(this.node, 'div', 'round__buttons');
         this.prevButton = new Control(this.buttonsBlock.node, 'button', 'round__buttons__prev', ButtonEnum.Prev);
         this.nextButton = new Control(this.buttonsBlock.node, 'button', 'round__buttons__next', ButtonEnum.Next);
-
-        this.createCheckBox(3);
-        this.addQuestionNumberText(1, 3);
-        this.createAnswerList(quizData[0].answer);
     }
 
-    newRound = (data: IRound, number: number) => {
-
+    addRoundData = (roundData: IRound, questionCount: number, questionNrm: number) => {
+        this.createCheckBox(questionCount);
+        this.addQuestionNumberText(questionNrm, questionCount);
+        this.question.node.textContent = roundData.question;
+        this.createAnswerList(roundData.answer);
     }
 
     createCheckBox = (quantity: number) => {

@@ -2,6 +2,7 @@ import { Control } from '../utile/control';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { Quiz } from './pages/quiz/quiz';
+import { IRound } from '../data/quiz.data';
 
 export class App extends Control {
     private header: Header;
@@ -16,6 +17,10 @@ export class App extends Control {
         this.main = new Control(this.node, 'main', 'main');
         this.footer = new Footer(this.node);
         this.quiz = new Quiz(this.main.node);
+    }
+
+    addRoundData = (roundInfo: IRound, questionCount: number, questionNum: number) => {
+        this.quiz.addRoundData(roundInfo, questionCount, questionNum);
     }
 
     showResult = () => {
