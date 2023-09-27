@@ -19,8 +19,8 @@ export class App extends Control {
         this.quiz = new Quiz(this.main.node);
     }
 
-    addRoundData = (roundInfo: IRound, questionCount: number, questionNum: number) => {
-        return this.quiz.addRoundData(roundInfo, questionCount, questionNum);
+    addRoundData = (roundInfo: IRound, questionCount: number, questionNum: number, checkedQuestion: number) => {
+        return this.quiz.addRoundData(roundInfo, questionCount, questionNum, checkedQuestion);
     }
 
     showResult = () => {

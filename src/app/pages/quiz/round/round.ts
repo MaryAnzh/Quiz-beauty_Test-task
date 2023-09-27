@@ -31,25 +31,13 @@ export class Round extends Control {
         this.buttonsBlock = new QuizButtons(this.node);
     }
 
-    addRoundData = (roundData: IRound, questionCount: number, questionIndex: number): Promise<RoundResultType> => {
-        if (this.questionCount === 0) {
-            this.questionCount = questionCount;
-        }
-        const questionNum = questionIndex + 1;
-
-        if (this.checkboxesSet.length === 0) {
-            this.createCheckBox(questionCount);
-        } else {
-            this.checkedSliderInput(questionIndex);
-        }
-
-        this.addQuestionNumberText(questionNum, questionCount);
-        this.question.node.textContent = roundData.question;
-        this.createAnswerList(roundData.answers);
-        this.buttonsBlock.changeButtonsView(questionIndex, questionCount);
+    addRoundData = (roundData: IRound, questionCount: number, questionIndex: number, selectedAnswer: number): Promise<RoundResultType> => {
+        this.cleanRoundInfo(questionCount, questionIndex);
+        this.addRoundInfo(roundData, questionCount, questionIndex, selectedAnswer);
 
         return new Promise((res) => {
             this.buttonsBlock.node.onclick = (e) => {
+                const checkedElem = this.answerListSet.findIndex(el => el.checked === true);
                 const el = <HTMLElement>e.target;
                 let direction = '';
                 if (el.id !== controlButtons.Next && el.id !== controlButtons.Prev) {
@@ -58,21 +46,37 @@ export class Round extends Control {
                     return;
                 }
 
-                const round: controlButtons = el.id === controlButtons.Prev ? controlButtons.Prev : controlButtons.Next;
-                const checkedElem = this.answerListSet.reduce((checked: number, el: HTMLInputElement, i: number) => {
-                    if (el.checked) {
-                        checked = i;
-                    }
-                    return checked;
-                }, -1);
+                const round: controlButtons = el.id === controlButtons.Prev ? controlButtons.Prev : controlButtons.Next;;
                 const result: RoundResultType = {
                     direction: round,
                     checkedQuestion: checkedElem,
+                    currentRound: questionIndex,
                 }
 
                 res(result);
             }
+
+            this.checkboxesSet.forEach((input, i) => {
+                input.onchange = () => {
+                    const checkedElem = this.answerListSet.findIndex(el => el.checked === true);
+                    const result: RoundResultType = {
+                        questionNum: i,
+                        checkedQuestion: checkedElem,
+                        currentRound: questionIndex
+                    }
+                    res(result);
+                }
+            });
         });
+    }
+
+    addRoundInfo = (roundData: IRound, questionCount: number, questionIndex: number, selectedAnswer: number) => {
+        const questionNum = questionIndex + 1;
+
+        this.addQuestionNumberText(questionNum, questionCount);
+        this.question.node.textContent = roundData.question;
+        this.createAnswerList(roundData.answers, selectedAnswer);
+        this.buttonsBlock.changeButtonsView(questionIndex, questionCount);
     }
 
     createCheckBox = (quantity: number) => {
@@ -99,31 +103,39 @@ export class Round extends Control {
         this.questionNumText.node.textContent = `Вопрос ${questionNum} из ${questionCount}`;
     }
 
-    createAnswerList = (answers: string[]) => {
+    createAnswerList = (answers: string[], checkedInput: number) => {
         this.answerList.node.innerHTML = '';
 
         [...Array(answers.length).keys()].forEach((index) => {
             const answer = new Control(this.answerList.node, 'li', 'round__info__answer-list__answer');
-            const inputId = `answer_${index}`;
             const input = new Control(answer.node, 'input', 'round__info__answer-list__answer__input', null,
                 [
                     { name: 'name', value: 'answer' },
-                    { name: 'type', value: 'radio' },
-                    { name: 'id', value: inputId }
+                    { name: 'type', value: 'radio' }
                 ])
-            const label = new Control(answer.node, 'label', 'round__info__answer-list__answer__label', null, [{ name: 'for', value: inputId }]);
+
+            const label = new Control(answer.node, 'label', 'round__info__answer-list__answer__label');
             label.node.textContent = answers[index];
             const item = <HTMLInputElement>input.node;
+            if (checkedInput > -1 && index === checkedInput) {
+                item.checked = true;
+            }
             this.answerListSet.push(item);
         });
     }
 
-    removeRoundData = () => {
-
+    cleanRoundInfo = (questionCount: number, questionIndex: number) => {
+        if (this.checkboxesSet.length === 0) {
+            this.createCheckBox(questionCount);
+        } else {
+            this.checkedSliderInput(questionIndex);
+        }
+        this.answerListSet = [];
     }
 
     destroy(): void {
         super.destroy();
         this.buttonsBlock.destroy();
+        this.answerListSet.forEach((input) => input.checked = null);
     }
 }

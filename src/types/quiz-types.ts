@@ -4,6 +4,8 @@ export enum controlButtons {
 }
 
 export type RoundResultType = {
-    direction: controlButtons,
-    checkedQuestion: number
+    direction?: controlButtons,
+    questionNum?: number,
+    checkedQuestion: number,
+    currentRound: number
 }
