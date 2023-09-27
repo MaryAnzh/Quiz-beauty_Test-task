@@ -16,7 +16,7 @@ export class Quiz extends Control {
     }
 
     addRoundData = (roundInfo: IRound, questionCount: number, questionNum: number) => {
-        this.round.addRoundData(roundInfo, questionCount, questionNum);
+       return this.round.addRoundData(roundInfo, questionCount, questionNum);
     }
 
     destroy(): void {

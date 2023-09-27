@@ -109,17 +109,17 @@ body {
 }
 
 table {
-	boarder-collapse: collapse;
-	boarder-spacing: 0;
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
 ol {
-	padding-left: 0;
+	padding: 0;
 	list-style: none;
 }
 
 ul {
-	padding-left: 0;
+	padding: 0;
 	list-style: none;
 }
 
@@ -142,6 +142,8 @@ a {
 }
 
 button {
-	boarder: none;
+	border: none;
 	outline: none;
+	padding-block: 0;
+    padding-inline: 0;
 }

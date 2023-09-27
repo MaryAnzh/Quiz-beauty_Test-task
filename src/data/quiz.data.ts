@@ -1,12 +1,12 @@
 export interface IRound {
     question: string,
-    answer: string[]
+    answers: string[]
 }
 
 export const quizData: IRound[] = [
     {
         question: 'Сколько вам лет?',
-        answer: [
+        answers: [
             'Нужны средства для ребёнка младше 10 лет',
             'Мне меньше 25 лет',
             'От 25 до 35 лет',
@@ -16,7 +16,7 @@ export const quizData: IRound[] = [
     },
     {
         question: 'Какой у вас тип кожи?',
-        answer: [
+        answers: [
             'Сухая',
             'Нормальная',
             'Комбинированная',
@@ -25,7 +25,7 @@ export const quizData: IRound[] = [
     },
     {
         question: 'Беспокоят ли воспаления на лице?',
-        answer: [
+        answers: [
             'Да',
             'Нет',
             'Иногда',

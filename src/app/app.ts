@@ -20,7 +20,7 @@ export class App extends Control {
     }
 
     addRoundData = (roundInfo: IRound, questionCount: number, questionNum: number) => {
-        this.quiz.addRoundData(roundInfo, questionCount, questionNum);
+        return this.quiz.addRoundData(roundInfo, questionCount, questionNum);
     }
 
     showResult = () => {

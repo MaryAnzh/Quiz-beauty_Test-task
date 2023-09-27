@@ -1,14 +1,11 @@
 import { Control } from '../../../../utile/control'
 import { IRound } from '../../../../data/quiz.data';
-import { quizData } from '../../../../data/quiz.data';
+import { QuizButtons } from './buttons/buttons';
+import { controlButtons, RoundResultType } from '../../../../types/quiz-types';
 
-enum ButtonEnum {
-    Next = 'Дальше',
-    Prev = 'Назад',
-    Result = 'Узнать результат',
-};
 
 export class Round extends Control {
+    questionCount = 0;
     infWrap: Control;
     sliderCheckboxes: Control;
     checkboxesSet: HTMLInputElement[] = [];
@@ -16,7 +13,7 @@ export class Round extends Control {
     question: Control;
     answerList: Control;
     answerListSet: HTMLInputElement[] = [];
-    buttonsBlock: Control;
+    buttonsBlock: QuizButtons;
     prevButton: Control;
     nextButton: Control;
 
@@ -31,16 +28,51 @@ export class Round extends Control {
         this.answerList = new Control(this.infWrap.node, 'ul', 'round__info__answer-list');
 
         //block2
-        this.buttonsBlock = new Control(this.node, 'div', 'round__buttons');
-        this.prevButton = new Control(this.buttonsBlock.node, 'button', 'round__buttons__prev', ButtonEnum.Prev);
-        this.nextButton = new Control(this.buttonsBlock.node, 'button', 'round__buttons__next', ButtonEnum.Next);
+        this.buttonsBlock = new QuizButtons(this.node);
     }
 
-    addRoundData = (roundData: IRound, questionCount: number, questionNrm: number) => {
-        this.createCheckBox(questionCount);
-        this.addQuestionNumberText(questionNrm, questionCount);
+    addRoundData = (roundData: IRound, questionCount: number, questionIndex: number): Promise<RoundResultType> => {
+        if (this.questionCount === 0) {
+            this.questionCount = questionCount;
+        }
+        const questionNum = questionIndex + 1;
+
+        if (this.checkboxesSet.length === 0) {
+            this.createCheckBox(questionCount);
+        } else {
+            this.checkedSliderInput(questionIndex);
+        }
+
+        this.addQuestionNumberText(questionNum, questionCount);
         this.question.node.textContent = roundData.question;
-        this.createAnswerList(roundData.answer);
+        this.createAnswerList(roundData.answers);
+        this.buttonsBlock.changeButtonsView(questionIndex, questionCount);
+
+        return new Promise((res) => {
+            this.buttonsBlock.node.onclick = (e) => {
+                const el = <HTMLElement>e.target;
+                let direction = '';
+                if (el.id !== controlButtons.Next && el.id !== controlButtons.Prev) {
+                    direction = controlButtons.Next;
+                    console.log('Неверный id');
+                    return;
+                }
+
+                const round: controlButtons = el.id === controlButtons.Prev ? controlButtons.Prev : controlButtons.Next;
+                const checkedElem = this.answerListSet.reduce((checked: number, el: HTMLInputElement, i: number) => {
+                    if (el.checked) {
+                        checked = i;
+                    }
+                    return checked;
+                }, -1);
+                const result: RoundResultType = {
+                    direction: round,
+                    checkedQuestion: checkedElem,
+                }
+
+                res(result);
+            }
+        });
     }
 
     createCheckBox = (quantity: number) => {
@@ -59,7 +91,7 @@ export class Round extends Control {
         this.checkboxesSet[0].checked = true;
     }
 
-    checkedBox = (number: number) => {
+    checkedSliderInput = (number: number) => {
         this.checkboxesSet[number].checked = true;
     }
 
@@ -69,6 +101,7 @@ export class Round extends Control {
 
     createAnswerList = (answers: string[]) => {
         this.answerList.node.innerHTML = '';
+
         [...Array(answers.length).keys()].forEach((index) => {
             const answer = new Control(this.answerList.node, 'li', 'round__info__answer-list__answer');
             const inputId = `answer_${index}`;
@@ -85,7 +118,12 @@ export class Round extends Control {
         });
     }
 
+    removeRoundData = () => {
+
+    }
+
     destroy(): void {
         super.destroy();
+        this.buttonsBlock.destroy();
     }
 }
