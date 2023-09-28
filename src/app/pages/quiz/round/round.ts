@@ -5,7 +5,6 @@ import { controlButtons, RoundResultType } from '../../../../types/quiz-types';
 
 
 export class Round extends Control {
-    questionCount = 0;
     infWrap: Control;
     sliderCheckboxes: Control;
     checkboxesSet: HTMLInputElement[] = [];
@@ -136,6 +135,8 @@ export class Round extends Control {
     destroy(): void {
         super.destroy();
         this.buttonsBlock.destroy();
+        this.checkboxesSet = [];
+        this.answerListSet = [];
         this.answerListSet.forEach((input) => input.checked = null);
     }
 }

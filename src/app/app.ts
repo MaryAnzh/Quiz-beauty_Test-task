@@ -1,15 +1,18 @@
 import { Control } from '../utile/control';
+import { IRound } from '../data/quiz.data';
+import { IQuizResult } from '../types/result-types';
+
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { Quiz } from './pages/quiz/quiz';
-import { IRound } from '../data/quiz.data';
+import { Result } from './pages/result/result';
 
 export class App extends Control {
     private header: Header;
     private main: Control;
     private footer: Footer;
-    public quiz: Quiz;
-
+    private quiz: Quiz;
+    private result: Result | null = null;
 
     constructor(parent: HTMLElement) {
         super(parent, 'div', 'wrapper');
@@ -22,9 +25,10 @@ export class App extends Control {
     addRoundData = (roundInfo: IRound, questionCount: number, questionNum: number, checkedQuestion: number) => {
         return this.quiz.addRoundData(roundInfo, questionCount, questionNum, checkedQuestion);
     }
-
+    // results: IQuizResult[]
     showResult = () => {
-        this.main.node.textContent = 'Спасибо за ответы';
+        this.quiz.destroy();
+        this.result = new Result(this.main.node);
     }
 
     destroy(): void {
