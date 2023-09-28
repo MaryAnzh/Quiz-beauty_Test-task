@@ -106,15 +106,19 @@ export class Round extends Control {
         this.answerList.node.innerHTML = '';
 
         [...Array(answers.length).keys()].forEach((index) => {
+
             const answer = new Control(this.answerList.node, 'li', 'round__info__answer-list__answer');
+            const inputId = `answer_${index}`;
             const input = new Control(answer.node, 'input', 'round__info__answer-list__answer__input', null,
                 [
                     { name: 'name', value: 'answer' },
-                    { name: 'type', value: 'radio' }
+                    { name: 'type', value: 'radio' },
+                    { name: 'id', value: inputId },
                 ])
 
-            const label = new Control(answer.node, 'label', 'round__info__answer-list__answer__label');
-            label.node.textContent = answers[index];
+            const label = new Control(answer.node, 'label', 'round__info__answer-list__answer__label', answers[index],
+                [{ name: 'for', value: inputId }]
+            );
             const item = <HTMLInputElement>input.node;
             if (checkedInput > -1 && index === checkedInput) {
                 item.checked = true;
