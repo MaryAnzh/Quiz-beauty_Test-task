@@ -1,6 +1,7 @@
 import { App } from '../app/app';
 import { IRound } from '../data/quiz.data';
 import { RoundResultType, controlButtons } from '../types/quiz-types';
+import { IQuizResult } from '../types/result-types';
 
 export class QuizController {
     data: IRound[];
@@ -32,7 +33,14 @@ export class QuizController {
             }
 
             if (this.currentRound === this.data.length - 1 && result.direction === controlButtons.Next) {
-                this.app.showResult();
+                const result: IQuizResult[] = this.answersSet.map((answerIndex, index) => {
+                    const roundResult: IQuizResult = {
+                        question: this.data[index].question,
+                        answer: this.data[index].answers[answerIndex]
+                    }
+                    return roundResult;
+                });
+                this.app.showResult(result);
                 return;
             }
 
@@ -56,7 +64,7 @@ export class QuizController {
                 return;
             }
         }
-        quiz();
+        await quiz();
     }
 
     createAnswersSet = () => {

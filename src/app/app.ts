@@ -25,10 +25,10 @@ export class App extends Control {
     addRoundData = (roundInfo: IRound, questionCount: number, questionNum: number, checkedQuestion: number) => {
         return this.quiz.addRoundData(roundInfo, questionCount, questionNum, checkedQuestion);
     }
-    // results: IQuizResult[]
-    showResult = () => {
+
+    showResult = (results: IQuizResult[]) => {
         this.quiz.destroy();
-        this.result = new Result(this.main.node);
+        this.result = new Result(this.main.node, results);
     }
 
     destroy(): void {
