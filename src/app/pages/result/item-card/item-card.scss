@@ -1,6 +1,7 @@
 $cardPadding: 0.1rem;
 
 .item-card {
+    position: relative;
     width: $cardWidth;
     height: $cardHight;
     display: flex;
@@ -52,6 +53,35 @@ $cardPadding: 0.1rem;
             text-decoration: line-through;
         }
 
+    }
+
+    &__icon {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+
+        .heart-svg {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: #D2D2D2;
+            stroke-width: 2.7px;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: all .3s;
+            pointer-events: none;
+        }
+
+        &:hover .heart-svg {
+            fill: $mainColor;
+        }
+
+        &:active .heart-svg {
+            transform: scale(1.05);
+        }
     }
 
 }
