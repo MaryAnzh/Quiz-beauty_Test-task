@@ -1,0 +1,43 @@
+.quiz-buttons {
+    width: 100%;
+    align-self: flex-end;
+    display: flex;
+    gap: 0 2rem;
+
+    &__prev,
+    &__prev-first,
+    &__next {
+        padding: 0.6rem 0.8rem;
+        border-radius: 0.3125rem;
+        font-size: 0.9375rem;
+        font-weight: 700;
+        line-height: normal;
+        transition: all .3s;
+        cursor: pointer;
+
+        &:hover {
+            box-shadow: 3px 3px 6px rgba($color: gray, $alpha: 0.4);
+        }
+
+        &:active {
+            transform: scale(0.96);
+        }
+    }
+
+    &__prev-first {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    &__prev {
+        color: $mainColorDark;
+        background-color: white;
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    &__next {
+        background-color: $mainColor;
+        color: white;
+    }
+}
