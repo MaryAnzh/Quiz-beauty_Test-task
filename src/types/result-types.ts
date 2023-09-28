@@ -8,5 +8,5 @@ export interface IProduct {
     title: string,
     image: string,
     price: number,
-    oldPrice: number
+    oldPrice: number | null,
 }

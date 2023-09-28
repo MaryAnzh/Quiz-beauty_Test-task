@@ -1,8 +1,57 @@
+$cardPadding: 0.1rem;
+
 .item-card {
-    width: $cardSize;
-    height: $cardSize;
+    width: $cardWidth;
+    height: $cardHight;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: Inter;
+    padding: $cardPadding;
     border-radius: 0.42188rem;
     border: 1px solid $borderColor;
-    background: rgba($color: lightGray, $alpha: 0.6);
+    background: rgba($color: lightGray, $alpha: 0.2);
+
+    &__img {
+        width: calc($cardWidth - $cardPadding * 2);
+        height: calc($cardWidth - $cardPadding * 2);
+        object-fit: contain;
+        object-position: center;
+        border-radius: 0.42188rem;
+        border: 1px solid #E9E9E9;
+    }
+
+    &__title {
+        color: $mainColorDark;
+        font-size: 1.125rem;
+        font-weight: 500;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    &__prices-block {
+        width: 100%;
+        display: flex;
+        align-items: self-end;
+        gap: 0 0.4rem;
+
+        &__current {
+            font-size: 1.6875rem;
+            font-weight: 600;
+        }
+
+        &__old {
+            color: $oldPrice;
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 136.9%;
+            text-decoration: line-through;
+        }
+
+    }
 
 }
