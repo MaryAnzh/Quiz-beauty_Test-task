@@ -26,6 +26,14 @@
         font-weight: 400;
         line-height: normal;
     }
+
+    &__cards-wrap {
+        width: 100%;
+        margin-top: 3rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax($cardSize, 1fr));
+        gap: 2rem;
+    }
 }
 
 @import './item-card/item-card.scss';

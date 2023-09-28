@@ -1,0 +1,8 @@
+.item-card {
+    width: $cardSize;
+    height: $cardSize;
+    border-radius: 0.42188rem;
+    border: 1px solid $borderColor;
+    background: rgba($color: lightGray, $alpha: 0.6);
+
+}

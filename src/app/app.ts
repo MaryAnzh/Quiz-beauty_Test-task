@@ -1,6 +1,6 @@
 import { Control } from '../utile/control';
 import { IRound } from '../data/quiz.data';
-import { IQuizResult } from '../types/result-types';
+import { IProduct, IQuizResult } from '../types/result-types';
 
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
@@ -26,9 +26,9 @@ export class App extends Control {
         return this.quiz.addRoundData(roundInfo, questionCount, questionNum, checkedQuestion);
     }
 
-    showResult = (results: IQuizResult[]) => {
+    showResult = (results: IQuizResult[], products: IProduct[]) => {
         this.quiz.destroy();
-        this.result = new Result(this.main.node, results);
+        this.result = new Result(this.main.node, results, products);
     }
 
     destroy(): void {

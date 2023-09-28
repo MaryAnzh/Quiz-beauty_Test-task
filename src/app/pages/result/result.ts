@@ -1,4 +1,4 @@
-import { IQuizResult } from '../../../types/result-types';
+import { IProduct, IQuizResult } from '../../../types/result-types';
 import { Control } from '../../../utile/control';
 
 import { ItemCard } from './item-card/item-card';
@@ -16,7 +16,7 @@ export class Result extends Control {
     info: Control;
     cardsWrap: Control;
 
-    constructor(parent: HTMLElement, results: IQuizResult[]) {
+    constructor(parent: HTMLElement, results: IQuizResult[], products: IProduct[]) {
         super(parent, 'div', 'result');
 
         this.title = new Control(this.node, 'h2', 'result__title', resultText.title);
@@ -28,6 +28,10 @@ export class Result extends Control {
             li.node.innerHTML = `<span>${question}</span> : ${answer ? answer : resultText.noAnswer}`;
         });
         this.cardsWrap = new Control(this.node, 'div', 'result__cards-wrap');
+        products.forEach((product) => {
+            const card = new ItemCard(this.cardsWrap.node, product);
+        });
+
     }
 
     destroy(): void {

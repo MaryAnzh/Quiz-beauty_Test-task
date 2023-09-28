@@ -1,6 +1,6 @@
 import { App } from '../app/app';
 import { IRound } from '../data/quiz.data';
-import { IQuizResult } from '../types/result-types';
+import { IQuizResult, IProduct } from '../types/result-types';
 
 export class QuizController {
     data: IRound[];
@@ -25,9 +25,8 @@ export class QuizController {
             }
             return roundResult;
         });
-        this.app.showResult(result);
         const products = await this.getProducts();
-        console.log(products);
+        this.app.showResult(result, products);
 
 
         //     const result: RoundResultType = await this.app.addRoundData(
@@ -81,7 +80,7 @@ export class QuizController {
 
     getProducts = async () => {
         const response = await fetch('./json/products.json');
-        const data = await response.json();
+        const data: IProduct[] = await response.json();
         return data;
     }
 }
