@@ -45,6 +45,10 @@ const config = {
           from: path.resolve(__dirname, 'src/assets/img'),
           to: path.resolve(__dirname, 'dist/img')
         },
+        {
+          from: path.resolve(__dirname, 'src/data/products.json'),
+          to: path.resolve(__dirname, 'dist/json')
+        },
       ],
     }),
   ],
